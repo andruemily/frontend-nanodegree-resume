@@ -46,7 +46,7 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
   Uncomment the <script> tag below when you're ready to add an interactive
   Google Map to your resume!
   -->
-<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
   <meta name="viewport" content="width=device-width">
 </head>
@@ -75,7 +75,7 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     <div id="education" class="gray">
       <h2>Education</h2>
     </div>
-    <div id="mapDiv">
+    <div id="mapDiv" style="height:500px; width:500px">
       <h2>Where I've Lived and Worked</h2>
     </div>
     <div id="lets-connect" class="dark-gray">
@@ -122,8 +122,8 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     if(document.getElementsByTagName('h1').length === 0) {
       document.getElementById('header').style.backgroundColor = "black";
     }
-    if(document.getElementsByClassName('work-entry').length === 0) {
-      document.getElementById('work').style.backgroundColor = "black";
+    if(document.getElementsByClassName('workExperience').length === 0) {
+      document.getElementById('workExperience').style.backgroundColor = "black";
     }
     if(document.getElementsByClassName('project-entry').length === 0) {
       document.getElementById('projects').style.backgroundColor = "black";

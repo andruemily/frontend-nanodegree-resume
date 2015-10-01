@@ -13,11 +13,7 @@ Starting experiments
  $("#main").append(funThoughts);
  */
 
-var formattedName = HTMLheaderName.replace("%data%", "Emily Andrulis");
-var formattedRole = HTMLheaderRole.replace("%data%", "Software Developer");
 
- $("#header").prepend(formattedRole);
- $("#header").prepend(formattedName);
 
 
 
@@ -27,7 +23,8 @@ var bio = {
 	"contacts" : {
 		"email" : "eandrulis16@cornellcollege.edu",
 		"phone" : "630-666-2391",
-		"github" : "andruemily"
+		"github" : "andruemily",
+		"location" : "Brookfield, IL"
 	},
 	"picture" : "images/fry.jpg",
 	"welcomeMessage" : "Hello, and welcome to my resume site",
@@ -97,6 +94,25 @@ var education = {
 
 }
 
+var formattedName = HTMLheaderName.replace("%data%", bio.name);
+var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+
+//email, phone, github, location
+var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
+var formattedPhone = HTMLmobile.replace("%data%", bio.contacts.phone);
+var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
+var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
+
+var formattedPic = HTMLbioPic.replace("%data%", bio.picture);
+var formattedWelcome = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
+
+$("#topContacts").append(formattedPhone, formattedEmail, formattedGithub, formattedLocation);
+$("#header").append(formattedPic);
+$("#header").append(formattedWelcome);
+
 for(var i =0; i< bio.skills.length; i++){
 	if(i == 0){
 		$("#header").append(HTMLskillsStart);
@@ -149,9 +165,24 @@ var name = $("#name").text();
 $("#main").append(internationalizeButton);
 
 projects.display = function() {
-	//encapsulation
+	for(project in projects.projects){
+		$("#projects").append(HTMLprojectStart);
+		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+		console.log(formattedTitle);
+		var formattedDate = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+		var formattedDesc = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+		//next line should be in a loop
+		var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
+		$(".project-entry:last").append(formattedTitle);
+		$(".project-entry:last").append(formattedDate);
+		$(".project-entry:last").append(formattedDesc);
+		$(".project-entry:last").append(formattedImage);
+	}
 }
 
+projects.display();
+
+$("#mapDiv").append(googleMap);
 
 
 
