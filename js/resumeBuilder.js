@@ -1,5 +1,7 @@
 /*
-This is empty on purpose! Your code to build the resume will go here.
+  This is the code I wrote from using the Udacity JavaScripts Basics course. This code gives defines the main objects that are used on the site to give all the personal information. It also appends this information dynamically to the html code.
+
+Author: Emily Andrulis
  */
 
 /*
@@ -16,7 +18,7 @@ Starting experiments
 
 
 
-
+//Bio objecct defined
 var bio = {
 	"name" : "Emily Andrulis",
 	"role" : "Software Developer",
@@ -31,7 +33,7 @@ var bio = {
 	"skills" : ["Java", "Python", "VB"]
 }
 
-
+//Work object defined
 var work = {
 	"jobs" : [
 	{
@@ -59,7 +61,7 @@ var work = {
 }
 
 
-
+//Project object defined
 var projects = {
  "projects" : [
 	{
@@ -72,14 +74,15 @@ var projects = {
 
 }
 
+//Education object defined
 var education = {
  	"schools" : [
 		{
 			"name" : "Cornell College",
 			"dates" : "2012-2016",
 			"location" : "Mount Vernon, IA",
-			"majors" : ["Computer Science"],
-			"minors" : ["Spanish"],
+			"major" : "Computer Science",
+			"minor" : "Spanish",
 			"url" : "www.cornellcollege.edu"
 		}
 	],
@@ -94,6 +97,7 @@ var education = {
 
 }
 
+//Prepending the header (name and role)
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
 
@@ -103,9 +107,11 @@ var formattedPhone = HTMLmobile.replace("%data%", bio.contacts.phone);
 var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
 var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
 
+//Welcome and Picture
 var formattedPic = HTMLbioPic.replace("%data%", bio.picture);
 var formattedWelcome = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
 
+//Adding elements to page
 $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
 
@@ -113,6 +119,7 @@ $("#topContacts").append(formattedPhone, formattedEmail, formattedGithub, format
 $("#header").append(formattedPic);
 $("#header").append(formattedWelcome);
 
+//Formatting and adding skills from bio
 for(var i =0; i< bio.skills.length; i++){
 	if(i == 0){
 		$("#header").append(HTMLskillsStart);
@@ -125,10 +132,10 @@ for(var i =0; i< bio.skills.length; i++){
 	} 
 }
 
-
-var displayWork = function() {
+//Display info from work object
+work.display = function() {
 	for(job in work.jobs) {
-		$("#workExperience").append(HTMLworkStart);
+		$("#workExperience").append(HTMLschoolStart);
 		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
 		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
 		$(".work-entry:last").append(formattedEmployer + formattedTitle);
@@ -142,37 +149,24 @@ var displayWork = function() {
 	}
 }
 
-displayWork();
+work.display();
 
 
-$(document).click(function(loc) {
-	var x = loc.pageX;
-	var y = loc.pageY;
-
-	logClicks(x,y);
-});
 
 
-function inName() {
-	nameArray = name.trim().split(" ");
-	var firstName =  nameArray[0];
-	var lastName = nameArray[1].toUpperCase();
-	return firstName + " " + lastName;
-}
-
-var name = $("#name").text();
-
-$("#main").append(internationalizeButton);
-
+//Display all the projects info
 projects.display = function() {
 	for(project in projects.projects){
+		//New project start needed each time
 		$("#projects").append(HTMLprojectStart);
+		//Formatting variables
 		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
 		console.log(formattedTitle);
 		var formattedDate = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
 		var formattedDesc = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
 		//next line should be in a loop
 		var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
+		//Appending info to html
 		$(".project-entry:last").append(formattedTitle);
 		$(".project-entry:last").append(formattedDate);
 		$(".project-entry:last").append(formattedDesc);
@@ -182,7 +176,60 @@ projects.display = function() {
 
 projects.display();
 
+//Display info from education object
+education.display = function() {
+	for(school in education.schools) {
+		$("#education").append(HTMLworkStart);
+		var formattedName = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+		var formattedMajor = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+		$(".work-entry:last").append(formattedEmployer + formattedTitle);
+		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+		var formattedMinor = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+		var formattedLocation = HTMLworkDates.replace("%data%", work.jobs[job].location);
+		var formattedUrl = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+
+		//$(".work-entry:last").append(formattedLocation);
+	 	$(".work-entry:last").append(formattedDate);
+		$(".work-entry:last").append(formattedDesc);
+	}
+}
+
+education.display();
+
+//In Where I've Lived and Worked section
+//Adds the googleMap to mapDiv, more info in helper.js
 $("#mapDiv").append(googleMap);
+
+//Using vars from earlier, add to contacts to footer at the end
+$("#footerContacts").append(formattedPhone, formattedEmail, formattedGithub, formattedLocation);
+
+
+
+//ADDITIONAL FUNCTIONS
+
+
+//Function to international name
+function inName() {
+	nameArray = name.trim().split(" ");
+	var firstName =  nameArray[0];
+	var lastName = nameArray[1].toUpperCase();
+	return firstName + " " + lastName;
+}
+//needed because inName takes no parameters
+var name = $("#name").text();
+
+//Add internationalize button
+$("#main").append(internationalizeButton);
+
+
+
+//Function that logs in console where the page is clicked
+$(document).click(function(loc) {
+	var x = loc.pageX;
+	var y = loc.pageY;
+
+	logClicks(x,y);
+});
 
 
 
