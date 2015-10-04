@@ -79,7 +79,7 @@ var education = {
  	"schools" : [
 		{
 			"name" : "Cornell College",
-			"dates" : "2012-2016",
+			"dates" : "August 2012- May 2016",
 			"location" : "Mount Vernon, IA",
 			"major" : "Computer Science",
 			"minor" : "Spanish",
@@ -135,7 +135,7 @@ for(var i =0; i< bio.skills.length; i++){
 //Display info from work object
 work.display = function() {
 	for(job in work.jobs) {
-		$("#workExperience").append(HTMLschoolStart);
+		$("#workExperience").append(HTMLworkStart);
 		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
 		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
 		$(".work-entry:last").append(formattedEmployer + formattedTitle);
@@ -179,18 +179,21 @@ projects.display();
 //Display info from education object
 education.display = function() {
 	for(school in education.schools) {
-		$("#education").append(HTMLworkStart);
-		var formattedName = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-		var formattedMajor = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-		$(".work-entry:last").append(formattedEmployer + formattedTitle);
-		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-		var formattedMinor = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-		var formattedLocation = HTMLworkDates.replace("%data%", work.jobs[job].location);
-		var formattedUrl = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+		$("#education").append(HTMLschoolStart);
+		var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
+		var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[school].major);
+		var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+		var formattedMinor = HTMLschoolMinor.replace("%data%", education.schools[school].minor);
+		var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+		//var formattedUrl = HTMLschoolUrl.replace("%data%", education.schools[school].url);
 
-		//$(".work-entry:last").append(formattedLocation);
-	 	$(".work-entry:last").append(formattedDate);
-		$(".work-entry:last").append(formattedDesc);
+		//$(".school-entry:last").append(formattedLocation);
+	 	$(".education-entry:last").append(formattedName);
+	 	console.log(formattedName, formattedDates, formattedLocation, formattedMajor, formattedMinor);
+		$(".education-entry:last").append(formattedDates);
+		$(".education-entry:last").append(formattedLocation);
+		$(".education-entry:last").append(formattedMajor);
+		$(".education-entry:last").append(formattedMinor);
 	}
 }
 
